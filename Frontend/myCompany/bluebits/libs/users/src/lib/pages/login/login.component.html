@@ -1,0 +1,71 @@
+<!-- <p>login works!</p> -->
+<!-- full Page -->
+<div class="login-register">
+    <!-- section in the middle -->
+    <div class="login-register-panel">
+        <!-- grid has 12 columns , diving 6 each between picture and login part -->
+        <div class="grid">
+            <!-- 6 col for the image -->
+            <div class="col-6">
+                <!-- image is in asset folder of admin -->
+                <!-- automatically taking photo from application that is running i.e admin -->
+                <img src="assets/images/login-photo.png" alt="login-photo">
+            </div>
+            <!-- 6 col for the login part -->
+            <!-- in gerneral p-5( pending is 5 for half login part ) -->
+            <div class="col-6 p-5">
+                <h3>Welcome!</h3>
+                <h2>Login Page</h2>
+                <form [formGroup]="loginFormGroup">
+                    <!-- we can consider grid has a row -->
+                    <!-- each row has 12 columns -->
+                    <!-- each 12 column will consume 1 row -->
+                    <!-- mt- margin top -->
+                    <div class="grid mt-6">
+                        <!-- User- Email -->
+                        <div class="col-12">
+                            <div class="p-inputgroup">
+                                <span class="p-inputgroup-addon">
+                                    <i class="pi pi-user"></i>
+                                </span>
+                                <input pInputText formControlName="email" placeholder="Email" />
+                            </div>
+                            <small *ngIf="loginForm['email'].invalid && isSubmitted" class="p-error">
+                                <span *ngIf="loginForm['email'].errors.required">Email is required</span>
+                                <span *ngIf="loginForm['email'].errors.email">Email is invalid</span>
+                            </small>
+                        </div>
+                        <!-- password -->
+                        <div class="col-12">
+                            <div class="p-inputgroup">
+                                <span class="p-inputgroup-addon">
+                                    <i class="pi pi-lock"></i>
+                                </span>
+                                <input 
+                                    pInputText 
+                                    type="password" 
+                                    formControlName="password" 
+                                    placeholder="Password" 
+                                />
+                            </div>
+                            <small *ngIf="loginForm['password'].invalid && isSubmitted" class="p-error">
+                                Password is required
+                            </small>
+                        </div><br>
+                        <!-- submit button -->
+                        <div class="col-12">
+                            <!-- we used onClick in primeng instead of Click in angular/ngModel -->
+                            <p-button label="Submit" styleClass="full-btn" (onClick)="onSubmit()"></p-button>
+                        </div>
+                        <!-- to show the error -->
+                        <div class="col-12" *ngIf="isSubmitted && authError" >
+                            <small class="p-error">{{authMessage}}</small>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>

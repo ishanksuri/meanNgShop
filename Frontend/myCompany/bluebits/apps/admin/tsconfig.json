@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "target": "es2022",
+        "useDefineForClassFields": false,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitOverride": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": false
+    },
+    "files": [],
+    "include": [],
+    "references": [
+        {
+            "path": "./tsconfig.app.json"
+        },
+        {
+            "path": "./tsconfig.spec.json"
+        },
+        {
+            "path": "./tsconfig.editor.json"
+        }
+    ],
+    "extends": "../../tsconfig.base.json",
+    "angularCompilerOptions": {
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": true,
+        "strictInputAccessModifiers": true,
+        "strictTemplates": true,
+        "strictNullChecks": false,
+        //to get rid off error TS7006: Paramter 'event' implicitly has 'any' type
+        "noImplicitAny": false,
+        //error TS4111: Property 'email' comes from an index signature, so it must be accessed with ['email'].error TS4111: Property 'email' comes from an index signature, so it must be accessed with ['email'].
+        "noPropertyAccessFromIndexSignature": false,
+        // TS7030: Not all code paths return a value.
+        "noImplicitReturns": false,
+    }
+}

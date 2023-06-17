@@ -1,0 +1,15 @@
+
+
+// p-component( class ) is the entry point of fonts for prime NG, Now 'open sans' will not override by default prime ng font
+body, .p-component {
+    font-family: 'open Sans', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+//using mixins
+ul {
+    @include reset-list;
+}

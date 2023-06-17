@@ -1,0 +1,132 @@
+<!-- we need to fire this toast  -->
+<p-toast></p-toast>
+<div class="admin-page">
+    <!-- v1 -->
+    <!-- <p-card header="Add Category" subheader="You can add or edit categories here"> -->
+    <!-- V2- editmode ( this is static change as we're only changing text based on condition)-->
+    <p-card [header]="editmode ? 'Edit Product': 'Add Product' " subheader="You can add or edit products here">
+        <div class="grid mb-5">
+            <div class="col-12">
+                <p-toolbar>
+                    <div class="p-toolbar-group-left"></div>
+                    <div class="p-toolbar-group-right">
+                        <p-button 
+                        [label] ="editmode ? 'Update': 'Create'  "
+                        icon="pi pi-plus" 
+                        styleClass="p-button-primary mr-4"
+                        (click)="onSubmit()"
+                        ></p-button>
+                        <p-button 
+                        label="Cancel"
+                        icon="pi pi-arrow-circle-left" 
+                        styleClass="p-button-secondary"
+                        (click) = "onCancel()"
+                        ></p-button>
+                    </div>
+                </p-toolbar>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="col-12">
+                <form [formGroup]="form">
+                    <!-- v1 -->
+                    <!-- <div class="grid">
+                        <div class="col-4">
+                            <input type="text" pInputText />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" pInputText />
+                        </div>
+                    </div> -->
+
+                    <!-- v2 -->
+                    <!-- <div class="card"> -->
+                        <div class="fluid formgrid grid">
+                            <div class="field col">
+                                <label for="name">Name</label>
+                                <input formControlName="name" id="name" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                <!-- VALIDATION: so it will show red only when 1. input field is empty(true) && 2. when User clicked on primary button (create) is (true) -->
+                                <!-- v1 -->
+                                <!-- <small *ngIf="form.controls['name'].invalid && isSubmitted" class="p-error">Name is required</small> -->
+                                <!-- v2 -->
+                                <small *ngIf="productForm['name'].invalid && isSubmitted" class="p-error">Name is required</small>
+                            </div>
+                            <div class="field col">
+                                <label for="brand">Brand</label>
+                                <input formControlName="brand" id="brand" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                <small *ngIf="productForm['brand'].invalid && isSubmitted" class="p-error">Brand is required</small>
+                            </div>
+                            <!-- Note: every formControlName must be our form group which we build inside product-list.component.ts -->
+                            <div class="field col">
+                                <label for="price">Price</label><br>
+                                <p-inputNumber formControlName="price" mode="decimal"  [useGrouping]="false" >
+                                </p-inputNumber>
+                                <small *ngIf="productForm['price'].invalid && isSubmitted" class="p-error">Price is required</small>
+                            </div>  
+                        </div>
+                        <div class="fluid formgrid grid">
+                            <div class="field col-4">
+                                <label for="countInStock">Count in Stock</label><br/>
+                                <p-inputNumber formControlName="countInStock" mode="decimal"  [useGrouping]="false" >
+                                </p-inputNumber>
+                                <small *ngIf="productForm['countInStock'].invalid && isSubmitted" class="p-error">Count in stock is required</small>
+                            </div>
+                            <div class="field col-4">
+                                <label for="category">Category</label><br>
+                                <!-- the list of categories will be placed in the input called options -->
+                                <!-- When user is selecting category in dropdown menu on UI, the Beauty category as 
+                                an object is being is being passes to the backend, due to which backend is throwing error ie.
+                                CastError: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "Category"
+                                To solve this problem we are using -> optionValue="id" , its like a key of the particular selected option among categories eg. beauty. So category is not an object anymore -->
+                                <p-dropdown 
+                                [options]="categories" 
+                                formControlName="category" 
+                                optionLabel="name" 
+                                optionValue="id"
+                                [filter]="true" 
+                                filterBy="name" [showClear]="true" placeholder="Select a Category"
+                                ></p-dropdown>
+                                <small *ngIf="productForm['category'].invalid && isSubmitted" class="p-error">Category is required</small>
+                            </div>
+                            <div class="field col-4">
+                                <label for="isFeatured">Is Featured</label><br>
+                                <p-inputSwitch formControlName="isFeatured"></p-inputSwitch>
+                            </div>
+                            <div class="field col-12">
+                                <label for="description">Description</label><br/>
+                                <textarea  pInputTextarea 
+                                formControlName="description" 
+                                [rows]="7" [cols]="30" 
+                                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+                                <small *ngIf="productForm['description'].invalid && isSubmitted" class="p-error">Description is required</small>
+                            </div>
+                            <div class="field col-12">
+                                <label for="richDescription">Product Details</label><br/>
+                                <p-editor formControlName="richDescription" [style]="{'height':'320px'}"></p-editor>
+                            </div>
+                            <div class="field col-12">
+                                <label for="name">Main Image</label><br/>
+                                <input type="file" class="p-inputtext" 
+                                accept="image/*" 
+                                (change) = "onImageUpload($event)"
+                                
+                                 />
+                                 <!-- we want to show image upload on create product only not on update product -->
+                                 <small *ngIf="productForm['image'].invalid && isSubmitted" class="p-error">Image is required</small>
+                                <!-- FOR THUMBNAIL ON UI FOR SAME UPLOADED IMAGE -->
+                                <!-- mt-margin , pl-padding left --> 
+                                <div class="col-2 mt-2 pl-0">
+                                    <!-- using variable imageDisplay to store the image url, also it[src] will be input( from user on ui), so using two way binding -->
+                                    <img style="width: 100%" [src]="imageDisplay" alt="">
+                                </div>
+                                
+                            </div>
+                        </div>
+                    <!-- </div> -->
+                </form>
+            </div>
+        </div>
+    </p-card>
+</div>
+

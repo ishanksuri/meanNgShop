@@ -1,0 +1,104 @@
+<!-- <p>orders-detail works!</p> -->
+<p-toast></p-toast>
+ <!-- using *ngIf="order" because its better to see that if this data is ready or not,
+ sometimes on slow servers when you don't get your order you will get error in the console
+ and this will be causing the problem and there will no data to display 
+ so its better to wait for this variable ie. order( order.id) to be ready like 
+ because we have waiting time in form of subscribe and wait for the service 
+ until this.order = order in _getOrder(); in prders-detail.component.ts -->
+ <!-- in short ,using *ngIf="order"... we're saying if there is order then display the content 
+ inside otherwise show empty page until the data comes, ( just dont show error) -->
+<div class="admin-page" *ngIf="order">
+  <p-card [header]="'View Order'" subheader="You can edit order status here">
+    <p-fieldset legend="Order Details" styleClass="mb-4" [toggleable]="true">
+      <div class="grid">
+        <div class="col-4">
+          <h5>Order Id</h5> 
+          <p>{{ order.id }}</p>
+        </div>
+
+        <div class="col-4">
+          <h5>Order Date</h5>
+          <p>{{ order.dateOrdered | date: 'short' }}</p>
+        </div>
+        <!-- we're not using form here so we can use ngModel 
+        which is a two way binding for reading and inserting the dropdown list -->
+        <!-- dropdrop here accept array ( our case:data in order.constants file- array of dictionary) -->
+        <!-- optionLabel="name" will display name instead of object previously -->
+        <!-- onChange - callback to invoke when value of dropdown changes -->
+        <!-- optionValue is needed to send value:2 or 1 or 0 to backend as it's how we defined in constants and backend -->
+        <div class="col-4">
+          <h5>Order Status</h5>
+          <p-dropdown
+            [options]="orderStatuses"
+            optionLabel="name"
+            optionValue="id"
+            (onChange)="onStatusChange($event)"
+            [(ngModel)]="selectedStatus"
+          >
+          </p-dropdown>
+        </div>
+        <!-- using pipes to show currency -->
+        <div class="col-4">
+          <h5>Order Total Price</h5>
+          <p>{{ order.totalPrice | currency }}</p>
+        </div>
+      </div>
+    </p-fieldset>
+    <p-fieldset legend="Order Items" styleClass="mb-4" [toggleable]="true">
+      <div class="grid mb-5">
+        <!-- p-text-bold or text-bold not working, so using stong -->
+        <div class="col-2 text-bold"><strong>Brand</strong></div>
+        <div class="col-2 text-bold"><strong>Category</strong></div>
+        <div class="col-2 text-bold"><strong>Name</strong></div>
+        <div class="col-2 text-bold"><strong>Price</strong></div>
+        <div class="col-2 text-bold"><strong>Quantity</strong></div>
+        <div class="col-2 text-bold"><strong>Subtotal</strong></div>
+      </div>
+      <!-- As you can see, ngFor makes it easy to generate dynamic lists in Angular templates. -->
+      <!-- Interpolation in Angular is a way to display the value of a component property or expression in the template. The syntax for interpolation is to wrap the expression with double curly braces {{ }}. -->
+      <!-- Always use this format in *ngForg or *ngIf -->
+      <div class="grid mb-5" *ngFor="let orderItem of order.orderItems">
+        <div class="col-2">{{ orderItem.product }}</div>
+        <!-- <div class="col-2">{{ orderItem.product.brand }}</div>
+        <div class="col-2">{{ orderItem.product.category.name }}</div>
+        <div class="col-2">{{ orderItem.product.price | currency }}</div> -->
+        <div class="col-2">{{ orderItem.quantity }}</div>
+        <!-- <div class="col-2">{{ orderItem.product.price * orderItem.quantity | currency }}</div> -->
+      </div>
+
+      <!-- for testing only<p>{{ order.orderItems}}</p> -->
+
+      <!-- green color, text-bold and offset is not working -->
+      <div class="grid" style="color: green">
+        <!-- offset is being used to move 8 places ( in terms of col )total price to right  -->
+        <div class="col-2 offset-8 text-bold">Total Price</div>
+        <div class="col-2 text-bold">{{ order.totalPrice | currency }}</div>
+      </div>
+    </p-fieldset>
+    <p-fieldset legend="Order Address" styleClass="mb-4" [toggleable]="true">
+      <div class="grid">
+        <div class="col-4">
+          <h5>Order Address</h5>
+          <p>
+            {{ order.shippingAddress1 }}<br />
+            {{ order.shippingAddress2 }}<br />
+            {{ order.zip }} {{ order.city }}<br />
+            {{ order.country }}
+          </p>
+        </div>
+
+        <div class="col-4">
+          <h5>Customer Info</h5>
+          <p>{{ order.user.name }}</p>
+        </div>
+
+        <div class="col-4">
+          <h5>Contact Info</h5>
+          <p>{{ order.phone }}</p>
+        </div>
+      </div>
+    </p-fieldset>
+  </p-card>
+</div>
+

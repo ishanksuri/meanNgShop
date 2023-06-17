@@ -1,0 +1,201 @@
+0613552782- nk stoke
+
+Utility using
+
+1. nodemon
+will monitor any changes in our source code when we press cntrl+s/save it will start app.js automatically
+
+2. to host a server install express
+
+3. didnt specify any initial route
+
+4lib to read environment variable into all app.js kind files
+ npm install dotenv
+
+5. Lib to log API requests
+	npm install morgan
+
+6. Lib which is resposible for all operations of MongoDB in the application/nodejs application
+npm install mongoose
+
+7. In mongoDB, its called collection
+	In nodejs, its called model
+
+AWait- await requires async method, using this it will wait the ProductList to fill first and thensend
+
+If we want to
+
+SECTION4
+
+everthing in mongoose starts with schema. Each schema maps to a Mongo DB collection 
+& defines the shape of the document within that collection
+
+
+Frontend:
+
+extensions
+	Nx Console
+	Angular Language Service
+	prettier
+	bracker pair coloriser
+	css navigation
+	Jest Runner- tool for unit testing
+	
+1. Nx cli commands
+	npx create-nx-workspace --preset=angular -> create Nx workspace:
+	nx serve ngshop -> to start application 
+	nx generate @nrwl/angular:app admin -> to generate new application admin
+	nx g component home-page --project=ngshop --dry-run -> to generate component( dry run )
+	nx g component pages/home-page --project=ngshop --dry-run -> to generate component inside folder( dry run )
+	nx g component home-page --project=ngshop -> to generate component
+	nx g component pages/home-page --project=ngshop  -> to generate component inside folder
+	
+	npx nx g @nrwl/workspace:lib ui --dry-run -> to generate library ( dry mode)
+	npx nx g @nrwl/workspace:lib ui -> to generate library 
+	
+	creating banner component in ui library->
+	 npx nx generate @schematics/angular:component banner --project=ui --style=scss --export --prefix=ui --selector=banner --no-interactive 
+	
+	creating component in a shared folder using nx console
+	npx nx generate @nrwl/angular:component shared/shell --project=admin --no-interactive 
+	
+	creating products-lst component
+	 npx nx generate @nrwl/angular:component pages/products/products-list --project=admin --inlineStyle --skipTests --no-interactive
+	
+nx cloud at nx folder
+https://cloud.nx.app/orgs/workspace-setup?accessToken=NDlkOTQwZTMtOWE5Ny00MGM3LWE5ZjUtYWYzZDVmMDVhMWVjfHJlYWQtd3JpdGU=
+
+2.nx cloud at mycompany folder
+	
+ >  NX   First time using Nx? Check out this interactive Nx tutorial.
+
+   https://nx.dev/angular-tutorial/1-code-generation
+
+
+ >  NX   Distributed caching via Nx Cloud has been enabled
+
+   In addition to the caching, Nx Cloud provides config-free distributed execution,
+   UI for viewing complex runs and GitHub integration. Learn more at https://nx.app
+
+   Your workspace is currently unclaimed. Run details from unclaimed workspaces can be viewed on cloud.nx.app by anyone
+   with the link. Claim your workspace at the following link to restrict access.
+
+   https://cloud.nx.app/orgs/workspace-setup?accessToken=NTEyMDkwZGYtYzYxOC00NDViLTk3NWMtYmVlNmQ1MTg3MzA1fHJlYWQtd3JpdGU=
+
+NxCloud
+Enable faster CI & better DX
+You can activate distributed tasks executions and caching by running:
+
+nx connect-to-nx-cloud
+
+3. Eslint: is a tool specificied the linting of my application
+4. install npm bootstrap package->
+	npm install bootstrap@5.3.0-alpha1
+	
+5. Prime ng & prime icons
+	npm install primeng --save
+	or(if error)
+	npm install primeng --save --legacy-peer-deps	
+	npm i primeicons --save
+	
+6. Import accordian module in app.module.ts of ngshop
+	import {AccordionModule} from 'primeng/accordion';
+	
+7. Import Animations in app.module.ts of ngshop
+	import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+	
+8. Installing Grid System( primeflex )
+	npm install primeflex --save
+
+9.To initialise the elements before you start the code( there were whitespaces in sidebar boundary )
+	npm install normalize.css
+	
+10 if error comes in button( havn't yet received such error ) prmeng is using thhis library
+	npm install @angular/cdk --save
+
+11.mkdir environments
+
+12. Importing external libarary (quil)- dependencies
+Dependencies
+Quill Editor 1.0.
+
+Resources of quill needs to be added to your application. Example setup with CLI is as follows;
+
+
+npm install quill --save
+
+Add Quill to scripts in angular.json
+
+
+"scripts": [... "../node_modules/quill/dist/quill.js"],
+
+Add Quill css to styles in angular.json
+
+
+"styles": [ ... "../node_modules/quill/dist/quill.core.css", "../node_modules/quill/dist/quill.snow.css"],	
+
+
+Paginator- to make into pages
+https://primeng.org/table
+
+
+http://localhost:3000/api/v1/users/login
+{
+    "email":"thomas2.jackson@email.com",
+    "password":"1234567"
+}
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzNjN2Y0ZGI0MzllYzVhOGJmMDM2NWQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2ODI3NjQ2NDAsImV4cCI6MTY4Mjg1MTA0MH0.NQlq-UcfE9bMVAlMRf0XpM9LBbINaHWFtMDiMXFG97E
+
+countries
+npm install i18n-iso-countries
+
+
+
+
+"node_modules/primeicons/primeicons.css",
+                    "node_modules/primeng/resources/themes/saga-blue/theme.css",
+                    "node_modules/primeng/resources/primeng.min.css"
+					
+					
+Issues to fix:
+
+1. Order section-  
+	in file order-list.html
+		check line 10 :               <th pSortableColumn="user"> in order-list.html
+		check line 25:               <td>{{ order.user.name }}</td>
+
+
+2. login.component -  Validations are not displaying( solved) onClick was spelled wrong		
+
+
+errors:
+in.ts:7 ERROR Error: Uncaught (in promise): InvalidCharacterError: Failed to execute 'atob' on 'Window': The string to be decoded is not correctly encoded.
+Error: Failed to execute 'atob' on 'Window': The string to be decoded is not correctly encoded.
+ 
+soln: token consists of 3 parts. Header),data,verify signature 
+
+
+
+error: <router-outlet></router-outlet>
+soln: exports: [RouterModule],in app-routing.module.ts
+
+
+Memory leak is a problem in angular:
+ when object is getting created again and again everytime you visit a specific page again n again then old object remains in memory too.
+ 
+but in our case subscription is the problem
+everytime we are visiting a page/categories-list.component.ts for ex- getcatgories.. see there we are using subscribe. 
+And those subscripitions must be closed using unsubscribe() at the end
+
+
+from on component to other component , we use localstorage to retrive the info.
+
+1. resume
+2. javascript
+3. git, github learn
+4. html, css, 
+5. https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/#functional-programming
+6, async, await
+7. angular architecture, lifecycle
+8. https://www.theodinproject.com/lessons/node-path-javascript-asynchronous-code#promises
